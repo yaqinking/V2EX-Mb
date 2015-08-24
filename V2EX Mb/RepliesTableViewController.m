@@ -63,6 +63,7 @@
     } else {
         NSLog(@"can't set response serializer T_T ");
     }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation,id htmlBody) {
  
         //后台处理这些数据，话说这个时候我才知道它返回数据后就开始直接在主线程执行了……
@@ -82,6 +83,7 @@
 //                NSLog(@"URL -> %@",completeURL);
             }];
             dispatch_async(dispatch_get_main_queue(), ^{
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                 [self.tableView reloadData];
                     [weakSelf.tableView.infiniteScrollingView stopAnimating];
                     self.pageOffset ++;
